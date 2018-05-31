@@ -24,7 +24,7 @@ public class ListController {
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
-    }
+}
 
     @RequestMapping(value = "")
     public String list(Model model) {
@@ -53,6 +53,8 @@ public class ListController {
     }
 
     @RequestMapping(value = "jobs")
+    //doesn't deal with an "all" scenario;
+    //it only displays jobs matching a specific value in a specific column
     public String listJobsByColumnAndValue(Model model,
             @RequestParam String column, @RequestParam String value) {
 
