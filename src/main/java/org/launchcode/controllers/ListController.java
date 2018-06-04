@@ -57,11 +57,17 @@ public class ListController {
     //it only displays jobs matching a specific value in a specific column
     public String listJobsByColumnAndValue(Model model,
             @RequestParam String column, @RequestParam String value) {
+        if (column.equals("all")) {
+            ArrayList<HashMap<String, String>> jobs = JobData.findAll();
+            model.addAttribute("title", "All Jobs");
+            model.addAttribute("jobs", jobs);
+            return "list-jobs";
+        } else {
+            ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(column, value);
+            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
+            model.addAttribute("jobs", jobs);
 
-        ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(column, value);
-        model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
-        model.addAttribute("jobs", jobs);
-
-        return "list-jobs";
+            return "list-jobs";
+        }
     }
 }
